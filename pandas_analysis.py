@@ -24,7 +24,7 @@ df = pd.DataFrame(rows)
 
 # will print the first 10
 #  print(df.head(10))
-'''
+
 print("DataFrame shape:", df.shape)
 print("DataFrame columns:", df.columns)
 
@@ -38,10 +38,17 @@ print(greater_2000[["title", "points"]])
 
 
 # Sorting and cutting top 5 
-sorted_articles = df.sort_values(by="points", ascending=False)
-print(sorted_articles[["title", "points"]].head(5))
+sorted_articles = df.sort_values(
+    by="points", 
+    ascending=False)
+top_articles = sorted_articles[["title", "points"]].head(5)
 
+sorted_articles = df.sort_values(
+    by="points", 
+    ascending=False)
+top_articles = sorted_articles[["title", "points"]].head(5)
 # Average 
+
 average_points = df["points"].mean()
 print("Average article points:", average_points)
 
@@ -51,10 +58,13 @@ print("Total comments:", total_comments)
 
 
 # Most comments
-most_commented = df.loc[df["comments"].idxmax()]
+most_commented = df.sort_values(
+                  by= "comments", 
+                 ascending=False ).head(5)
+
 print("Most commented article:")
 print(most_commented[["title", "author", "comments"]])
-'''
+
 # Time and Date extraction :
 
 # Year
@@ -85,6 +95,11 @@ print("Average article points:", average_points)
 monthly_popularity = df.groupby(["year", "month"])["points"].mean()
 print("Average article points per month:")
 print(monthly_popularity)
+
+yearly_articles = df.groupby("year").size()
+print("Articles published per year:")
+print(yearly_articles)
+
 
 cursor.close()
 connection.close()
