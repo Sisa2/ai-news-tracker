@@ -13,16 +13,21 @@ url = "https://hn.algolia.com/api/v1/search"
 params = {
     "query": "AI",
     "tags": "story",
-    "hitsPerPage": 20
+    "hitsPerPage": 100
 }
 
 # the requests.get sends an HTTP GET request
 # Stores the server's response
 response = requests.get(url, params=params, timeout=20)
-
+print("Request URL:", response.url)
+# Check the response
 print("Status code:", response.status_code)
 
+
+# Convert JSON into Python data
 data = response.json()
+
+# Extract the articles
 articles = data["hits"]
 print("Articles retrieved:", len(articles))
 
